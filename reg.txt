@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registration Form with Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .registration-form {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 320px;
+    }
+    .registration-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .registration-form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .registration-form input[type="text"],
+    .registration-form input[type="email"],
+    .registration-form input[type="password"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .registration-form button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .registration-form button:hover {
+      background: #45a049;
+    }
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <form class="registration-form" id="regForm" action="#" method="POST" novalidate>
+    <h2>Register</h2>
+    <label for="fullname">Full Name</label>
+    <input type="text" id="fullname" name="fullname" required />
+    <div class="error-message" id="nameError"></div>
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+    <div class="error-message" id="emailError"></div>
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required />
+    <div class="error-message" id="passwordError"></div>
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" name="confirm-password" required />
+    <div class="error-message" id="confirmPasswordError"></div>
+    <button type="submit">Register</button>
+  </form>
+  <script>
+    const form = document.getElementById('regForm');
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      // Clear previous errors
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      document.getElementById('confirmPasswordError').textContent = '';
+      let valid = true;
+      // Validate full name
+      const name = form.fullname.value.trim();
+      if (name === '') {
+        document.getElementById('nameError').textContent = 'Full Name is required.';
+        valid = false;
+      }
+      // Validate email with simple regex
+      const email = form.email.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email === '') {
+        document.getElementById('emailError').textContent = 'Email is required.';
+        valid = false;
+      } else if (!emailRegex.test(email)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email.';
+        valid = false;
+      }
+      // Confirm password matches
+      const confirmPassword = form['confirm-password'].value;
+      if (confirmPassword !== password) {
+        document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+        valid = false;
+      }
+      if (valid) {
+        alert('Registration successful!');
+        form.reset();
+      }
+    });
+  </script>\
+</body>
+</html>
